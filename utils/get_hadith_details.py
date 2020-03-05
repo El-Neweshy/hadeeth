@@ -15,9 +15,8 @@ def open_link(link, page):
     Open a link and create a global driver given the hadeeth number and hadeeth bab
     '''
     final_link = link + str(page)
-    print(link)
     driver.get(final_link)
-
+    return final_link
 
 def create_csv(file_name):
     columns = [
@@ -35,6 +34,7 @@ def create_csv(file_name):
     df.index = np.arange(1, len(df) + 1)
     df.to_csv('{}.csv'.format(file_name))
     return df
+
 
 def get_info(url, df):
     hadeeth_obj = driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div[1]/div[2]/div[2]/div[2]/p')
@@ -65,7 +65,6 @@ def get_info(url, df):
 
     # Append to csv
     df = df.append(hadeeth_details, ignore_index=True)
-
     # pprint.pprint(hadeeth_details)
     return hadeeth_details, df
 
@@ -85,11 +84,11 @@ if __name__ == "__main__":
     # Scrap content
     page = 1
     while page < 7032:
-        print('page:', page)
-        open_link(
+        final_link = open_link(
             'https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/',
             page)
         df = get_info(driver.current_url, df)[1]
+        print('No.:', page, "link", final_link)
         page += 1
 
     # Finish
