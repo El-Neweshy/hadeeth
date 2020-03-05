@@ -85,10 +85,9 @@ def get_info(url, df):
     }
 
     # Append to csv
-    df.append(hadeeth_details, ignore_index=True)
-    print(df)
+    df = df.append(hadeeth_details, ignore_index=True)
 
-    pprint.pprint(hadeeth_details)
+    # pprint.pprint(hadeeth_details)
     return hadeeth_details, df
 
 
@@ -106,14 +105,16 @@ if __name__ == "__main__":
 
     # Scrap content
     page = 1
-    while page < 4:
+    while page < 7032:
+        print('page:', page)
         open_link(
             'https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/',
             page)
-        get_info(driver.current_url, df)
-        time.sleep(2)
+        df = get_info(driver.current_url, df)[1]
+        # time.sleep(1)
         page += 1
 
     # Finish
-    print('Scrap is done check:', "{}.csv".format(book_file_name))
     df.to_csv("{}.csv".format(book_file_name))
+    print('Scrap is done check:', "{}.csv".format(book_file_name))
+
