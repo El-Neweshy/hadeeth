@@ -1,18 +1,13 @@
 # https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/105787/1
 # https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/1
-
 # https://hadith.islam-db.com/books/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A
 
 # -*- coding: utf-8 -*-
 
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import time
 import pprint
 import numpy as np
-import json
-import os
 
 
 def open_link(link, page):
@@ -22,22 +17,6 @@ def open_link(link, page):
     final_link = link + str(page)
     print(link)
     driver.get(final_link)
-
-
-def create_json(filename='results.json'):
-    with open(filename, 'w') as f:
-        # json.dump({}, f)
-        pass
-
-
-def add_to_json(data, filename='results.json'):
-    with open(filename, 'r+') as f:
-        json_file = json.load(f, strict=False).decode('utf-8')
-        print(json_file)
-        json_file.update(data)
-        print(json_file)
-        json.dump(json_file, f)
-        f.close()
 
 
 def create_csv(file_name):
@@ -111,10 +90,8 @@ if __name__ == "__main__":
             'https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/',
             page)
         df = get_info(driver.current_url, df)[1]
-        # time.sleep(1)
         page += 1
 
     # Finish
     df.to_csv("{}.csv".format(book_file_name))
     print('Scrap is done check:', "{}.csv".format(book_file_name))
-
