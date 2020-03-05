@@ -1,6 +1,10 @@
+# Bokhari
 # https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/105787/1
 # https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/1
 # https://hadith.islam-db.com/books/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A
+
+# Muslim
+#https://hadith.islam-db.com/single-book/158/%D8%B5%D8%AD%D9%8A%D8%AD-%D9%85%D8%B3%D9%84%D9%85/105808/2
 
 # -*- coding: utf-8 -*-
 
@@ -77,15 +81,14 @@ if __name__ == "__main__":
     driver = webdriver.Chrome()
 
     # Create CSV
-
-    book_file_name = 'صحيح البخاري'
+    book_file_name = 'صحيح مسلم'
     df = create_csv(book_file_name)
 
     # Scrap content
     page = 1
-    while page < 7032:
+    while page <= 5367: # , Moslim 5367
         final_link = open_link(
-            'https://hadith.islam-db.com/single-book/146/%D8%B5%D8%AD%D9%8A%D8%AD-%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A/1/',
+            'https://hadith.islam-db.com/single-book/158/%D8%B5%D8%AD%D9%8A%D8%AD-%D9%85%D8%B3%D9%84%D9%85/105808/',
             page)
         df = get_info(driver.current_url, df)[1]
         print('No.:', page, "link", final_link)

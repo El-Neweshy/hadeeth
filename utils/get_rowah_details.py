@@ -25,7 +25,7 @@ def create_csv(file_name):
         "lived-in",
         "rawy-number-in-webosite",
         "tlameez",
-        "Asateza",
+        "asateza",
         "garh",
         "source-web"
     ]
@@ -56,6 +56,22 @@ def get_info(url, df):
             telmeez_details = "{}, {}, {}".format(telmeez_tr_td_name, telmeez_tr_td_shohra, telmeez_tr_td_rotbah)
             tlameez.append(telmeez_details)
 
+
+    asateza_tag = driver.find_element_by_xpath('//*[@id="collapse3"]/div/table/tbody')
+    asateza_trs = asateza_tag.find_elements_by_tag_name('tr')
+    for ostaz_trs in asateza_trs:
+        ostaz_tr_tds = ostaz_trs.find_elements_by_tag_name('td')
+        asateza = []
+        for ostaz_tr_td in ostaz_tr_tds:
+            ostaz_tr_td_name = ostaz_tr_td[0].text
+            ostaz_tr_td_shohra = ostaz_tr_td[1].text
+            ostaz_tr_td_rotbah = ostaz_tr_td[2].text
+            ostaz_details = "{}, {}, {}".format(ostaz_tr_td_name, ostaz_tr_td_shohra, ostaz_tr_td_rotbah)
+            asateza.append(ostaz_details)
+
+    # TODO: working on garh
+    garh = None
+
     hadeeth_details = {
         "rawy-name": rawy_name,
         "shohra": shohra,
@@ -63,9 +79,10 @@ def get_info(url, df):
         "rotbah": rotbah,
         "lived-in": lived_in,
         "tlameez": tlameez,
-        "Asateza": Asateza,
+        "asateza": asateza,
         "garh": garh,
-        "source-web": "https://dorar.net/"
+        "source-web": "https://dorar.net/",
+        "source-url": url,
     }
 
     # Append to csv
