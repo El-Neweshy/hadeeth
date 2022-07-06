@@ -4,14 +4,15 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+defaults: &defaults
+  docker:
+      - image: circleci/node:13.8.0
+
 jobs:
   save_hello_world_output:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: circleci/node:13.8.0
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    <<: *defaults
     steps:
       - run: echo "hello world" > ~/output.txt
       - persist_to_workspace:
@@ -19,8 +20,7 @@ jobs:
           paths:
           - output.txt
   print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
