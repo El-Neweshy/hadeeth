@@ -1,10 +1,6 @@
 version: 2.1
-# Use a package of configuration called an orb.
 orbs:
-  # Choose either one of the orbs below
   welcome: circleci/welcome-orb@0.4.1
-  # aws-cli: circleci/aws-cli@2.0.3
-# Define the jobs we want to run for this project
 jobs:
   create_infrastructure: 
       docker:
@@ -24,7 +20,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-              fingerprints: ["7d:8d:9f:4f:ee:d9:ae:33:0c:58:49:95:e4:b5:40:72"] 
+          fingerprints: ["7d:8d:9f:4f:ee:d9:ae:33:0c:58:49:95:e4:b5:40:72"] 
       - run:
           name: Install Ansible
           command: |
@@ -32,7 +28,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory.txt main.yml
+            ansible-playbook -i inventory.txt playbook.yml
 
 workflows:
   myWorkflow:
