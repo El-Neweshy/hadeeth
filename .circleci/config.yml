@@ -29,7 +29,7 @@ jobs:
                 --region us-east-1
         - run: return 1
         - destroy_environment
-          when: on_fail
+            when: on_fail
   configure_infrastructure: 
     docker:
       - image: python:3.7-alpine3.11
